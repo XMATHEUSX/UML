@@ -1,0 +1,58 @@
+@startuml
+class usuario{
+- id: int
+- senha: String 
+- tipoUser: int
+- cadastroAprovado: String 
+- dataCriacao : date
+- ClienteId : int
+- motoristaId : int
++ ValidaUsuario()
+}
+
+class motorista
+{
+- id:int
+- cpf : String
+- nome : String
+- sexo : char
+- email: String
+- data_nascimento : date
+- telefone: string
+- endereco: Endereco
+}
+class passageiro
+{
+- id:int
+- cpf : String
+- nome : String
+- sexo : char
+- email: String
+- data_nascimento : date
+- telefone: string
+- endereco: Endereco
+- meioPagamento: MeioPagamento
+
+}
+class endereco
+{
+- cep: string
+- rua: String
+- numero: int
+- Complemento: String
+
+}
+class MeioPagamento{
+- bandeira_cartão : string
+- numero : String
+- validade: date
+- cod_Verificacao: int
++ ValidaMeioPagamento()
+
+}
+passageiro "0..*" x-up-* "1..*" MeioPagamento
+passageiro "1" x-down-* "1" endereco
+motorista "1" x-down-* "1" endereco
+usuario "1" -down-> "1" motorista
+usuario "1" -right-> "1" passageiro
+@enduml

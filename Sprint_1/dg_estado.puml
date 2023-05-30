@@ -1,0 +1,13 @@
+@startuml
+|Usuário|
+start
+if (Tipo de usuário?) then (Motorista)
+:Registrar-se como motorista;
+else (Passageiro)
+:Registrar-se como passageiro;
+if (Tipo de pagamento?) then (Cartão)
+:Cadastrar pagamento;
+endif
+endif
+stop
+@enduml
