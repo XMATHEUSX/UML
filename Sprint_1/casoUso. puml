@@ -8,13 +8,13 @@ package Sistema #aliceblue;line:black;line.bold;text:black {
   usecase "Cadastrar método de pagamento" as UC3
 }
 
-package API_externas #pink;line:black;line.bold;text:black  {
+package API_externas #pink;line:black;line.bold;text:black {
 :pagamento: as pag
 :cadastro: as cad
 }
 
 passageiro -up-> UC1
-motorista -up-> UC2d
+motorista -up-> UC2
 cad --> UC1
 cad --> UC2
 passageiro -up-> UC3

@@ -1,0 +1,42 @@
+@startuml
+actor      Passageiro       as user
+boundary   "Tela Cadastro"    as tela
+control     "Controlador De Cadastro " as ctrl
+database    Database    as BD
+participant "API Cadastro" as api
+
+user -> tela :  Cadastro
+tela -> user :  formulario
+user -> tela :  formulario preenchido
+tela -> ctrl :  (nome:string,email:string,senha:string,cpf:string,fotos:Img,endereco:Endereco)
+ctrl -> BD :  Verifica_disponiblidade(cpf:string,email:string)
+BD -> ctrl :  Resposta da disponibilidade(msg:string)
+alt email e cpf em uso
+ctrl -> tela:   "Email e cpf já utilizados"
+tela -> user:   "Email e cpf já utilizados"
+user -> tela:   fornece outro email e cpf
+else email em uso
+ctrl -> tela :   "email em uso"
+tela -> user :   "email em uso"
+user -> tela:  fornece outro email
+else cpf em uso
+ctrl -> tela :   "cpf em uso" 
+tela -> user :   "cpf em uso" 
+user -> tela:  fornece outro cpf
+else emial e cpf não utilizados 
+ctrl ->ctrl :   "OK"
+end
+ctrl -> BD :  SalvaDados(nome:string,email:string,senha:string,cpf:string,fotos:Img,endereco:Endereco)
+ctrl -> api : ValidaUsuario(cpf:string,fotos:Img)
+alt não confirma identidade
+api -> ctrl : "NOK"
+ctrl -> tela : "A identidade não pode ser confirmada envie outra foto"
+tela -> user : "A identidade não pode ser confirmada envie outra foto"
+user -> tela : "nova foto"
+
+else confrima a identidade
+api -> ctrl : "OK"
+ctrl -> tela : "Cadastro finalizado"
+tela -> user : "Cadastro finalizado"
+end
+@enduml
