@@ -1,0 +1,14 @@
+@startuml
+:passageiro: as passageiro
+:motorista: as motorista
+package Sistema #aliceblue;line:black;line.bold;text:black {
+
+  usecase "solicitar Corrida" as UC1
+  usecase "receber Corrida" as UC2
+}
+
+passageiro -up-> UC1
+motorista <-up- UC2
+(UC1) -> (UC2)
+
+@enduml
