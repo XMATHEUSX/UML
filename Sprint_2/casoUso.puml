@@ -7,8 +7,14 @@ package Sistema #aliceblue;line:black;line.bold;text:black {
   usecase "receber Corrida" as UC2
 }
 
+package API_externas #pink;line:black;line.bold;text:black {
+:Posição: as pos
+:Estimativa: as est
+}
 passageiro -up-> UC1
 motorista <-up- UC2
 (UC1) -> (UC2)
+pos --> UC1
+est --> UC1
 
 @enduml

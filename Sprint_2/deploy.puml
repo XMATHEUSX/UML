@@ -53,13 +53,48 @@ class MeioPagamento
 - codVerificacao: int
 + ValidaMeioPagamento(nome do titular:string, número do cartão:string, validade:date, cvv:string, cpf do titular do cartão:string)
 } 
+
+class Solicitacao {
+- id: int
+- clienteld: int
+- horaPedido: time
+- enderecoOrigem:Endereco 
+- enderecoDestino: Endereco 
+- statusSolicitacao: char
+- metodoPag: char
++ ValidaPosicao()
++ EstimativaCusto()
+}
+
+
+class Corrida {
+- id: int
+- horaAceite : time
+- motoristald: int
+- distancia: float
+- valor: float
+}
+
+class Despacho {
++ EnviaSolicitacao()
++ CriarCorrida()
+}
+
 interface --- sistema
+
 passageiro "1" *-up-x "0..*" MeioPagamento
-passageiro "1" *-down-x "1" endereco
-motorista "1" *-down-x "1" endereco
+passageiro "1" *-up-x "1" endereco
+motorista "1" *-up-x "1" endereco
 usuario "1" <|-down- "1" motorista
 usuario "1" <|-right- "1" passageiro
 sistema -- usuario
 sistema -- MeioPagamento
+sistema -- Solicitacao
+sistema -- Despacho
+
+passageiro --> Solicitacao
+motorista --> Corrida
+Solicitacao *-- Despacho
+Despacho --> Corrida
 
 @enduml

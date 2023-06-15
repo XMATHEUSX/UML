@@ -1,0 +1,21 @@
+@startuml
+actor      Passageiro       as user
+boundary   "Tela Cadastro"    as tela
+control     "Controlador De Cadastro " as ctrl
+database    Database    as BD
+participant "API Pagamento" as api
+
+user -> tela :  nome do titular, número do cartão, validade, cvv, cpf do titular do cartão
+tela -> ctrl :  (nome do titular:string, número do cartão:string, validade:date, cvv:string, cpf do titular do cartão:string)
+ctrl -> api :  ValidaMeioPagamento(nome do titular:string, número do cartão:string, validade:date, cvv:string, cpf do titular do cartão:string)
+api -> ctrl :  Resposta da Validade(msg:string)
+alt Dados inválidos
+ctrl -> tela:   "Dados inválidos"
+tela -> user:   "Dados inválidos"
+else Dados válidos 
+ctrl ->ctrl :   "OK"
+end
+ctrl -> BD :  SalvaDadosMeioPagamento(nome do titular:string, número do cartão:string, validade:date, cpf do titular do cartão:string)
+ctrl -> tela : confirmação de cadastro bem sucedido
+tela -> user : "cadastro bem-sucedido"
+@enduml
