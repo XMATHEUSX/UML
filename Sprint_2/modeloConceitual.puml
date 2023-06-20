@@ -29,12 +29,14 @@ class Corrida {
 - motoristald: int
 - distancia: float
 - valor: float
+- status : char
 }
 
-class motorista {
-- CNH: string 
+class motorista
+{
+- CNH : string
+- Receber_corrida : string
 }
-
 class passageiro
 {
 - meioPagamento: MeioPagamento
@@ -63,6 +65,5 @@ usuario "1" <|-right- "1" passageiro
 
 passageiro --> Solicitacao
 motorista --> Corrida
-Solicitacao *-- Corrida
-
+Solicitacao --* Corrida
 @enduml

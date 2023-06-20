@@ -27,6 +27,7 @@ class usuario {
 class motorista
 {
 - CNH : string
+- Receber_corrida : string
 }
 
 class passageiro 

@@ -3,8 +3,8 @@
 :motorista: as motorista
 
 package Sistema #aliceblue;line:black;line.bold;text:black {
-  usecase "Cadastro de passageiro" as UC1
-  usecase "Cadastro de motorista" as UC2
+  usecase "Cadastrar passageiro" as UC1
+  usecase "Cadastrar motorista" as UC2
   usecase "Cadastrar método de pagamento" as UC3
 }
 
