@@ -1,0 +1,114 @@
+@startuml
+class usuario {
+- id: int
+- senha: String 
+- cadastroAprovado: String
+- cpf : String
+- nome : String
+- sexo : char
+- email: String
+- data_nascimento : date
+- telefone: string
+- endereco: Endereco 
+- dataCriacao : date
+}
+class Solicitacao {
+- id: int
+- clienteld: int
+- horaPedido: time
+- enderecoOrigem:Endereco 
+- enderecoDestino: Endereco 
+- statusSolicitacao: char
+- metodoPag: char
+}
+
+class Corrida {
+- id: int
+- horaAceite : time
+- motoristald: int
+- distancia: float
+- valor: float
+- status : char
+}
+
+class motorista
+{
+- CNH : string
+- Receber_corrida : string
+}
+class passageiro
+{
+- meioPagamento: MeioPagamento
+}
+
+class endereco
+{
+- cep: string
+- rua: String
+- numero: int
+- Complemento: String
+}
+
+class MeioPagamento{
+- bandeira_cartão : string
+- numero : String
+- validade: date
+- cod_Verificacao: int
+}
+
+class API_GoogleMaps {
+}
+
+class Mapa {
+- rota: List<Ponto>
+- imagem: String
+}
+
+class Ponto {
+- latitude: float
+- longitude: float
+}
+
+class Atendente {
+- id: int
+- nome: String
+- cpf: String
+}
+
+class Mensagem {
+- id: int
+- remetente: usuario
+- destinatario: usuario
+- data: date
+- conteudo: string
+}
+
+class Filtro {
+- id: int
+- filtroPet: boolean
+- filtroPortaMalas: boolean
+- filtroGeneroMotorista: char
+}
+
+passageiro "1" *-up-x "0..*" MeioPagamento
+passageiro "1" *-up-x "1" endereco
+motorista "1" *-up-x "1" endereco
+usuario "1" <|-down- "1" motorista
+usuario "1" <|-right- "1" passageiro
+
+passageiro --> Solicitacao
+motorista --> Corrida
+Solicitacao --* Corrida
+
+passageiro "1" -- "1" API_GoogleMaps
+API_GoogleMaps "1" -- "1" Mapa
+
+usuario "1" -- "0..*" Mensagem
+Atendente "1" -- "0..*" Mensagem
+
+usuario "1" -- "1..*" Filtro
+Filtro "1" -- "1" Solicitacao
+
+Mapa "1" -- "*" Ponto : possui
+@enduml
+

@@ -1,0 +1,24 @@
+@startuml
+|Usuário|
+start
+:Abrir aplicativo;
+:Abrir menu de suporte;
+
+repeat
+  :Enviar mensagem;
+  |Sistema|
+  :Encaminhar para atendente disponivel;
+  |Suporte|
+  :Receber mensagem;
+  :Enviar resposta;
+  |Sistema|
+  :Encaminhar para o usuário;
+
+  if (Finalizada?) then (sim)
+    :Finalizar conversa;
+    stop
+  else (não)
+    :Continuar conversa;
+  endif
+repeat while ()
+@enduml
