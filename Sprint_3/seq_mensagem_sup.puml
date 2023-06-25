@@ -1,0 +1,15 @@
+@startuml
+actor Usuário as U
+participant "Página de Suporte" as P
+participant Sistema as S
+participant Atendente as A
+
+U -> P: Abrir página de suporte
+U -> P: Enviar mensagem
+P -> S: encaminharMensagem(mensagem: str)
+S -> A: lerMensagem()
+A -> S: enviarResposta(resposta: str)
+S -> P: exibirResposta()
+P -> U: Ler a resposta
+@enduml
+

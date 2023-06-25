@@ -1,0 +1,47 @@
+@startuml
+actor      Passageiro       as user
+boundary   "Tela Solicitacao"    as tela
+control     "Controlador De Solicitacao" as ctrl
+participant "Despacho" as desp
+participant "API posicao" as pos
+participant "API estimativa" as est
+participant "API Google Maps" as maps
+  
+user -> tela : origem e destino
+tela -> ctrl : (origem:string, destino:string)
+ctrl -> tela : ExibirFiltros()
+tela -> user : Perguntas (formulário com opções)
+user -> tela : Respostas (opções selecionadas)
+tela -> ctrl : EnviarFiltros(respostas)
+ctrl -> pos : ValidaPosicao(cpf:string,email:string)
+pos -> ctrl :  Response(msg:string)
+alt Endereço inválido 
+ctrl -> tela:   "Endereço inválido"
+tela -> user:   "Endereço inválido"
+user -> tela:   fornece ponto de origem ou destino
+else email e cpf não utilizados 
+ctrl -> ctrl :   "OK"
+end
+ctrl -> est : EstimativaCusto(origem:string, destino:string)
+est -> ctrl : valor:int
+ctrl -> tela : valor:int
+tela -> user : valor:int
+user -> tela : Meio de pagamento 
+tela -> ctrl : Meio de pagamento
+ctrl -> maps: SolicitarRota(origem:string, destino:string)
+maps -> ctrl : Mapa com a rota
+ctrl -> tela : ExibirMapa(mapa)
+tela -> user : Mapa com a rota
+ctrl -> desp : solicacao:Solictacao
+desp -> desp:EnviaSolicitacao(solicacao:Solictacao,motoristaProximos(origem:string))
+alt Nenhum motorista aceitou a corrida  
+desp -> ctrl: nenhum motorista encontrado
+ctrl -> desp : solicacao:Solictacao
+desp -> desp:EnviaSolicitacao(solicacao:Solictacao,motoristaProximos(origem:string))
+else Algum motorista aceitou a corrida
+desp -> ctrl: Corrida aceita
+ctrl -> ctrl: CriarCorrida(solicitacao,horaAceite : time,motoristald: int,distancia: float, valor: float)
+ctrl -> tela: "informaçaoes sobre a corrida" 
+tela -> user:  "informaçaoes sobre a corrida" 
+end
+@enduml

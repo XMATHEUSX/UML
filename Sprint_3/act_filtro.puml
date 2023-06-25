@@ -1,0 +1,13 @@
+@startuml
+|Sistema|
+start
+:Exibir as opções de filtros;
+|Passageiro|
+if (Opção: Chamar veículo para local atual?) then (Sim)
+  :Informar localização atual;
+else (Não)
+  :Informar localizaçao de origem desejada;
+endif
+:Selecionar opções de filtro desejadas;
+:Enviar solicitação de corrida;
+@enduml

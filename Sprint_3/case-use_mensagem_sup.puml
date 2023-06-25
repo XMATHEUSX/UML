@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+
+actor Usuario as U
+actor Atendente as A
+
+rectangle "Envio de mensagem" {
+  U -- (Abrir página de suporte)
+  U -- (Digitar e enviar mensagem)
+  (Digitar e enviar mensagem) --> A
+  A -- (Ler mensagem)
+  U -- (Ler resposta)
+  A -- (Digitar e enviar resposta)
+  (Digitar e enviar resposta) --> U
+}
+@enduml

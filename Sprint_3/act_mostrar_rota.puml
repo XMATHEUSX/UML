@@ -1,0 +1,16 @@
+@startuml
+|Usuário|
+start
+:Abrir aplicativo;
+:Inserir ponto de origem e destino;
+
+|Sistema|
+:Receber dados da corrida e enviar para a API;
+
+|API Google Maps|
+:Desenhar a rota no mapa;
+
+|Sistema|
+:Mostrar mapa com o percurso da corrida do passageiro;
+stop
+@enduml
