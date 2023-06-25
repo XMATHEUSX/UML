@@ -90,6 +90,13 @@ class Filtro {
 - filtroGeneroMotorista: char
 }
 
+class Suporte{
+- id: int
+- usuarioId: int
+- atendenteId: int
+- mensagens: List<Mensagem>
+}
+
 passageiro "1" *-up-x "0..*" MeioPagamento
 passageiro "1" *-up-x "1" endereco
 motorista "1" *-up-x "1" endereco
@@ -103,12 +110,12 @@ Solicitacao --* Corrida
 passageiro "1" -- "1" API_GoogleMaps
 API_GoogleMaps "1" -- "1" Mapa
 
-usuario "1" -- "0..*" Mensagem
-Atendente "1" -- "0..*" Mensagem
+usuario "1" -- "0..*" Suporte
+Atendente "1" -- "0..*" Suporte
+Suporte "1" -- "0..*" Mensagem
 
 usuario "1" -- "1..*" Filtro
 Filtro "1" -- "1" Solicitacao
 
 Mapa "1" -- "*" Ponto : possui
 @enduml
-
