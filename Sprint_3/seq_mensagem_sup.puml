@@ -6,10 +6,9 @@ participant Atendente as A
 
 U -> P: Abrir página de suporte
 U -> P: Enviar mensagem
-P -> S: encaminharMensagem(mensagem: str)
-S -> A: lerMensagem()
+P -> S: Enviar mensagem
+S -> A: encaminharMensagem(mensagem: str)
 A -> S: enviarResposta(resposta: str)
 S -> P: exibirResposta()
 P -> U: Ler a resposta
 @enduml
-
