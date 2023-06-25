@@ -1,7 +1,7 @@
 @startuml
 actor Usuário as U
 participant "Página de Suporte" as P
-participant Sistema as S
+participant Suporte as S
 participant Atendente as A
 
 U -> P: Abrir página de suporte
