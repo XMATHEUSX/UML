@@ -5,22 +5,29 @@ start
 if (Opção: Chamar veículo para local atual?) then (Sim)
   :Informar localização atual;
 else (Não)
-  :Informar localizaçao de origem desejada;
+  :Informar destino desejado;
 endif
-:Informar destino desejado;
-:Enviar solicitação de corrida;
-|Motorista|
-if (Receber solicitações de corrida?) then (Sim)
-  :Receber notificação da solicitação;
-  :Analisar detalhes da corrida;
-  if (Aceitar corrida?) then (Sim)
-    :Confirmar aceitação;
-    |Passageiro|
-    :Receber confirmação de corrida;
-  else (Não)
-    |Motorista|
-    :Rejeitar corrida;
-    :Aguardar próxima solicitação;
+:Enviar solicitação de corrida ao sistema;
+|Sistema|
+if (Receber solicitação de corrida?) then (Sim)
+  :Encaminhar solicitação para motoristas disponíveis;
+  |Motorista|
+  if (Receber solicitações de corrida?) then (Sim)
+    :Receber notificação da solicitação;
+    :Analisar detalhes da corrida;
+    if (Aceitar corrida?) then (Sim)
+      :Confirmar aceitação ao sistema;
+      |Sistema|
+      :Notificar passageiro sobre a confirmação de corrida;
+      |Passageiro|
+      :Receber confirmação de corrida;
+    else (Não)
+      |Motorista|
+      :Rejeitar corrida;
+      :Aguardar próxima solicitação;
+      |Sistema|
+      :Atualizar solicitação de corrida;
+    endif
   endif
 endif
 |Passageiro|
@@ -36,6 +43,12 @@ endif
 :Chegar ao destino;
 :Encerrar a viagem;
 |Motorista|
-:Confirmar encerramento da viagem;
+:Confirmar encerramento da viagem ao sistema;
+|Sistema|
+:Atualizar status da corrida;
+|Passageiro|
+:Realizar pagamento eletrônico;
+|Sistema|
+:Confirmar pagamento;
 stop
 @enduml

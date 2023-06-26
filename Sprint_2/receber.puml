@@ -1,0 +1,19 @@
+@startuml
+actor      motorista       as user
+boundary   "Tela corrida"    as tela
+control     "Controlador De corrida" as ctrl
+participant "Despacho" as desp
+participant "API posicao" as pos
+ctrl -> Despacho :  dequearcorrida() 
+alt Existe solicitacao
+Despacho -> ctrl: solicitacao:Solicitacao
+ctrl -> tela : solicitação 
+tela -> user : solicitação
+alt Aceita solicitacao
+user -> tela : aceitar solicitacao
+tela  -> ctrl : aceitar solicitacao
+ctrl -> Despacho : aceitar solicitacao
+
+end
+end
+@enduml

@@ -31,9 +31,11 @@ class Solicitacao {
 - enderecoDestino: Endereco 
 - statusSolicitacao: char
 - metodoPag: char
-+ ValidaPosicao()
-+ EstimativaCusto()
++ ValidaPosicao(cpf:string,email:string)
++ EstimativaCusto(origem:string, destino:string)
++ EnviaSolicitacao(solicacao:Solictacao,motoristaProximos(origem:string))
 }
+
 
 class Corrida {
 - id: int
@@ -41,7 +43,9 @@ class Corrida {
 - motoristald: int
 - distancia: float
 - valor: float
-- status : char
++ CriarCorrida()
++ Obtemsolicitacao(posicao:string) 
++ FinalizaCorrida()
 }
 
 class motorista
@@ -117,21 +121,15 @@ class Suporte{
 + ExibirResposta()
 }
 
-class Despacho {
-+ EnviaSolicitacao(solicitacao: Solicitacao, motoristaProximos(origem: string))
-+ CriarCorrida()
-}
-
 passageiro "1" *-up-x "0..*" MeioPagamento
 passageiro "1" *-up-x "1" endereco
 motorista "1" *-up-x "1" endereco
 usuario "1" <|-down- "1" motorista
 usuario "1" <|-right- "1" passageiro
 
-passageiro --> Solicitacao
-motorista --> Corrida
-Solicitacao *-- Despacho
-Despacho --> Corrida
+passageiro"1" <-- "0..*"Solicitacao
+motorista "1"<-- "0..*"Corrida
+Solicitacao"1" --* "1"Corrida
 
 passageiro "1" -- "1" API_GoogleMaps
 API_GoogleMaps "1" -- "1" Mapa
@@ -149,5 +147,4 @@ interface --- sistema
 sistema -- usuario
 sistema -- MeioPagamento
 sistema -- Solicitacao
-sistema -- Despacho
 @enduml
